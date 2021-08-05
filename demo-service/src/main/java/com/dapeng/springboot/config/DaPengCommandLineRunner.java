@@ -30,10 +30,10 @@ public class DaPengCommandLineRunner implements CommandLineRunner {
         System.setProperty("soa.run.mode", "springboot");
 
         List<ClassLoader> appCls = new ArrayList<>(1);
-        ClassLoader appClassLoader = DemoApplication.class.getClassLoader();
-        appCls.add(appClassLoader);
+        ClassLoader classLoader = DemoApplication.class.getClassLoader();
+        appCls.add(classLoader);
 
-        ContainerFactory.createContainer(appCls, appClassLoader);
+        ContainerFactory.createContainer(appCls, classLoader);
         DapengContainer container = (DapengContainer) ContainerFactory.getContainer();
         DapengApplicationContext dapengApplicationContext = new DapengApplicationContext(applicationContext);
         SpringBootLoader springBootLoader = new SpringBootLoader(container, dapengApplicationContext);
@@ -42,10 +42,10 @@ public class DaPengCommandLineRunner implements CommandLineRunner {
 
         /**
          * 反射机制
-         Thread.currentThread().setContextClassLoader(appClassLoader);
-         Class<?> containerFactoryClz = appClassLoader.loadClass("com.github.dapeng.api.ContainerFactory");
+         Thread.currentThread().setContextClassLoader(classLoader);
+         Class<?> containerFactoryClz = classLoader.loadClass("com.github.dapeng.api.ContainerFactory");
         Method createContainerMethod = containerFactoryClz.getMethod("createContainer", List.class, ClassLoader.class);
-        createContainerMethod.invoke(containerFactoryClz, appCls, appClassLoader);
+        createContainerMethod.invoke(containerFactoryClz, appCls, classLoader);
 
         Method getContainerMethod = containerFactoryClz.getMethod("getContainer");
         Object container = getContainerMethod.invoke(containerFactoryClz);

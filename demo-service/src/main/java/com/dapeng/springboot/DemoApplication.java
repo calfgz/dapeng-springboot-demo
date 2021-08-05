@@ -1,5 +1,6 @@
 package com.dapeng.springboot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -20,7 +21,7 @@ public class DemoApplication {
 
     public static void main(String[] args) {
         //非web应用启动
-        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(DemoApplication.class)
+        new SpringApplicationBuilder(DemoApplication.class)
                 // .REACTIVE, .SERVLET
                 .web(WebApplicationType.NONE)
                 //.bannerMode(Banner.Mode.OFF)
